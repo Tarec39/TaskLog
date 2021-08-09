@@ -1,0 +1,137 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: black;
+}
+
+li {
+  list-style: none;
+}
+
+.AppName {
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  font-style: italic;
+}
+
+.TaskLogs {
+  margin-top: 40px;
+}
+
+.TaskLogs:first-child {
+  margin-top: 0;
+}
+
+.TaskLog {
+  width: 620px;
+  height: 210px;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: white;
+  margin: 20px auto 0 auto;
+}
+
+.TaskGroupName {
+  font-size: 32px;
+  margin-left: 10px;
+}
+
+.Content {
+  position: relative;
+  margin: 10px 0 0 10px;
+}
+
+.DatesDatas {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  margin-left: 100px;
+  width: 500px;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Date {
+  width: 70px;
+  border-right: thin solid black;
+  border-bottom: thin solid black;
+  font-size: 16px;
+  text-align: center;
+}
+
+.Datas {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Data {
+  text-align: center;
+  border-bottom: thin solid black;
+  border-right: thin solid black;
+  line-height: 24px;
+}
+
+.Tasks {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100px;
+  padding-top: 19.333px;
+  border-right: thin solid black;
+}
+
+.Task {
+  border-bottom: thin solid black;
+  width: 100px;
+  text-align: center;
+}
+
+.Task:first-child {
+  border-top: thin solid black;
+}
+
+.addTaskLog {
+  margin: 40px auto 0 auto;
+  width: 180px;
+  border-radius: 10px;
+  background: white;
+  padding: 10px 0;
+}
+
+.addTaskLog form {
+  margin: auto;
+  text-align: center;
+}
+
+.addTaskLog .addTaskGroupName {
+  width: 160px;
+}
+
+.addTaskLog .addTask {
+  width: 140px;
+  margin-top: 10px;
+}
+
+.addTaskLog button {
+  margin-top: 10px;
+}
+/*# sourceMappingURL=style.css.map */
