@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React , {Component} from 'react';
+import './style.scss';
+import Add from './components/Add.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            TaskGroupName: '',
+            Tasks : [],
+            Data : [],
+            addTaskGroupName: '',
+            addTask: ''
+        }
+    }
+
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    handleSubmit = (e) =>{
+        e.preventDefault()
+        if(this.state.addTask === '') return
+
+        this.state.Tasks.push(this.state.addTask)
+
+        this.setState({
+          TaskGroupName: this.state.addTaskGroupName,
+          Tasks : this.state.Tasks,
+          addTaskGroupName: '',
+          addTask: ''
+        })
+        console.log('タイトル: ' + this.state.TaskGroupName + '\nタスク: '+this.state.Tasks)
+    }
+    
+
+
+    render(){
+        return(
+            <React.Fragment>
+            <h1 className="AppName">TaskLog</h1>
+            <Add 
+            addTaskGroupName = {this.state.addTaskGroupName}
+            addTask = {this.state.addTask}
+            handleChange = {this.handleChange}
+            handleSubmit = {this.handleSubmit}
+            />
+            </React.Fragment>
+        )
+    }
 }
 
 export default App;
