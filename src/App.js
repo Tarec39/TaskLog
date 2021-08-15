@@ -7,33 +7,52 @@ class App extends Component{
     constructor(props){
         super(props)
         this.state = {
+            //主要
             TaskGroupName: '',
             Tasks : [],
             Data : [],
+            //仮置き用
             addTaskGroupName: '',
-            addTask: ''
+            addedTasks: [],
+            addTask: '',
+            //判定用
+            isEnterPressed : false,
         }
     }
 
     handleChange = (e) => {
         this.setState({[e.target.name]: e.target.value})
     }
-
+    handleEnterKey = (e) =>{
+        if(e.key === 'Enter'){
+            e.preventDefault()
+            this.state.addedTasks.push(this.state.addTask)
+            this.setState({
+                isEnterPressed : true,
+                addedTasks : this.state.addedTasks,
+                addTask : ''
+            })
+        }
+    }
     handleSubmit = (e) =>{
         e.preventDefault()
-        if(this.state.addTask === '') return
-
-        this.state.Tasks.push(this.state.addTask)
-
+        //空判定
+        if(this.state.addTaskGroupName === '') return
+        //Stateの更新
         this.setState({
           TaskGroupName: this.state.addTaskGroupName,
-          Tasks : this.state.Tasks,
-          addTaskGroupName: '',
-          addTask: ''
+          Tasks: this.state.addedTasks,
+          addTaskGroupName : '',
+          addedTasks : [],
+          addedTask : '',
+          isEnterPressed : false
         })
-        console.log('タイトル: ' + this.state.TaskGroupName + '\nタスク: '+this.state.Tasks)
     }
     
+    checkState = (e) =>{
+        e.preventDefault()
+        console.dir(this.state)
+    }
 
 
     render(){
@@ -43,8 +62,12 @@ class App extends Component{
             <Add 
             addTaskGroupName = {this.state.addTaskGroupName}
             addTask = {this.state.addTask}
+            addedTasks = {this.state.addedTasks}
             handleChange = {this.handleChange}
             handleSubmit = {this.handleSubmit}
+            handleEnterKey = {this.handleEnterKey}
+            isEnterPressed = {this.state.isEnterPressed}
+            // test = {this.checkState}
             />
             </React.Fragment>
         )

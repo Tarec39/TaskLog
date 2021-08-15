@@ -1,20 +1,27 @@
 import React from 'react';
 
 const AddTaskLog = (props)=>{
+    const { addTaskGroupName, addTask, addedTasks, handleChange, handleSubmit, handleEnterKey , isEnterPressed, test} = props
     return(
         <div className="addTaskLog">
-            <form  onClick={props.handleSubmit}>
-
+            <form>
                 <AddTaskGroupName
-                value={props.addTaskGroupName}
-                onChange={props.handleChange}
+                value={addTaskGroupName}
+                onChange={handleChange}
                 />
+                {isEnterPressed === true &&
+                <AddedTasks addedTasks={addedTasks}/>
+                }
                 <AddTasks
-                value={props.addTask}
-                onChange={props.handleChange}
+                value={addTask}
+                onChange={handleChange}
+                onKeyPress={handleEnterKey}
+                addedTasks={addedTasks}
                 />
-                <button type="submit">記録</button>
+
+                <button type="submit" onClick={handleSubmit}>登録</button>
             </form>
+            {/* <LogBtn onClick={test}/> */}
         </div>
     )
 }
@@ -30,21 +37,37 @@ const AddTaskGroupName = ({value, onChange}) =>{
         />
     )
 }
-const AddTasks = ({value, onChange}) =>{
+const AddTasks = ({value, onChange, onKeyPress}) =>{
     return(
-        <ul className="addTasks">
-            <li>
-                <input
-                type="text"
-                name="addTask"
-                className="addTask"
-                placeholder="+ タスクを追加"
-                value={value}
-                onChange={onChange}
-                />
-            </li>
+        <div className="addTasks">
+            <input
+            type="text"
+            name="addTask"
+            className="addTask"
+            placeholder="+ タスクを追加"
+            value={value}
+            onChange={onChange}
+            onKeyPress={onKeyPress}
+            />
+        </div>
+    )
+}
+
+const AddedTasks = ({addedTasks}) =>{
+    return(
+        <ul className="addedTasks">
+            {Object.keys(addedTasks).map((key, i) =>(
+                <li key={i}>{addedTasks[key]}</li>
+            ))}
         </ul>
     )
 }
 
+const LogBtn = ({onClick}) =>{
+    return(
+        <div>
+            <button onClick={onClick}>LOG</button>
+        </div>
+    )
+}
 export default AddTaskLog;
