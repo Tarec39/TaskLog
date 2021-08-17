@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
 import './style.scss';
-import Add from './components/Add.js'
+import AddTaskLog from './components/AddTaskLog'
 
 
 class App extends Component{
@@ -59,7 +59,8 @@ class App extends Component{
         return(
             <React.Fragment>
             <h1 className="AppName">TaskLog</h1>
-            <Add 
+
+            <AddTaskLog
             addTaskGroupName = {this.state.addTaskGroupName}
             addTask = {this.state.addTask}
             addedTasks = {this.state.addedTasks}
@@ -67,6 +68,7 @@ class App extends Component{
             handleSubmit = {this.handleSubmit}
             handleEnterKey = {this.handleEnterKey}
             isEnterPressed = {this.state.isEnterPressed}
+            
             // test = {this.checkState}
             />
             </React.Fragment>
