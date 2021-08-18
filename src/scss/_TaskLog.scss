@@ -16,12 +16,14 @@ $sameBorder: thin solid black;
     padding-top: 20px; //適当
     font-style: italic;
 }
+
 .TaskLogs{
     margin-top: 40px; //適当
     &:first-child{
         margin-top: 0;
     }
 }
+
 .TaskLog{
     width: 620px;//要調整
     height: 210px;//要調整
@@ -30,6 +32,7 @@ $sameBorder: thin solid black;
     background-color: white;
     margin: 20px auto 0 auto;
 }
+
 .TaskGroupName{
     font-size: $large;
     margin-left: 10px;//Contentのmarginと同じ
@@ -42,7 +45,7 @@ $sameBorder: thin solid black;
 
 }
 
-.DatesDatas{
+.Data{
     position: absolute;
     display: flex;
     flex-wrap: nowrap;
@@ -60,14 +63,13 @@ $sameBorder: thin solid black;
     border-bottom: $sameBorder;
     font-size: $medium;
     text-align: center;
-
 }
 
-.Datas{
+.Values{
     display: flex;
     flex-direction: column;
 }
-.Data{
+.Value{
     text-align: center;
     border-bottom: $sameBorder;
     border-right: $sameBorder;
@@ -90,4 +92,3 @@ $sameBorder: thin solid black;
         border-top: $sameBorder;
     }
 }
-

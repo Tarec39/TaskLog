@@ -1,22 +1,24 @@
 import React , {Component} from 'react';
 import './style.scss';
 import AddTaskLog from './components/AddTaskLog'
-
+import TaskLogs from './components/TaskLog'
 
 class App extends Component{
     constructor(props){
         super(props)
         this.state = {
-            //主要
-            TaskGroupName: '',
-            Tasks : [],
-            Data : [],
             //仮置き用
             addTaskGroupName: '',
             addedTasks: [],
             addTask: '',
             //判定用
             isEnterPressed : false,
+            //主要情報
+            CreatedDate : '',
+            Dates: [],
+            TaskGroupName: '',
+            Tasks : [],
+            Data : [],
         }
     }
 
@@ -45,15 +47,30 @@ class App extends Component{
           addTaskGroupName : '',
           addedTasks : [],
           addedTask : '',
+          CreatedDate : '',//ここがポイント
+          Dates: [this.formatMonth(), this.formatDates()],//ここがポイント
           isEnterPressed : false
         })
     }
-    
-    checkState = (e) =>{
-        e.preventDefault()
-        console.dir(this.state)
+    formatMonth = () =>{
+        let MonthString = ['January','February','March','April','May','June','July','August','September','October','November','December']
+        let MonthInt = new Date()
+        MonthInt = MonthInt.getMonth()
+        return MonthString[MonthInt];
     }
-
+    formatDates = () =>{
+        let FirstDay = new Date()
+        FirstDay = FirstDay.getDate()
+        let EndsDay = FirstDay+6
+        let Dates = []
+        for(var i=FirstDay; i<=EndsDay; i++){
+            Dates.push(i)
+        }
+        return Dates;
+    }
+    checkState = () =>{
+        console.log(this.state);
+    }
 
     render(){
         return(
@@ -68,8 +85,11 @@ class App extends Component{
             handleSubmit = {this.handleSubmit}
             handleEnterKey = {this.handleEnterKey}
             isEnterPressed = {this.state.isEnterPressed}
-            
-            // test = {this.checkState}
+            />
+            <TaskLogs
+            TaskGroupName={this.state.TaskGroupName}
+            Dates={this.state.Dates}
+            Tasks={this.state.Tasks}
             />
             </React.Fragment>
         )

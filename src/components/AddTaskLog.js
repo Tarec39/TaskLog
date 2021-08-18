@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AddTaskLog = (props)=>{
-    const { addTaskGroupName, addTask, addedTasks, handleChange, handleSubmit, handleEnterKey , isEnterPressed, test} = props
+    const { addTaskGroupName, addTask, addedTasks, handleChange, handleSubmit, handleEnterKey , isEnterPressed} = props
     return(
         <div className="addTaskLog">
             <form>
@@ -63,11 +63,11 @@ const AddedTasks = ({addedTasks}) =>{
     )
 }
 
-const LogBtn = ({onClick}) =>{
-    return(
-        <div>
-            <button onClick={onClick}>LOG</button>
-        </div>
-    )
-}
+// const LogBtn = ({onClick}) =>{
+//     return(
+//         <div>
+//             <button onClick={onClick}>LOG</button>
+//         </div>
+//     )
+// }
 export default AddTaskLog;
