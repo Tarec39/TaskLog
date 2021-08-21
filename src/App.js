@@ -2,7 +2,7 @@ import React , {Component} from 'react';
 import './style.scss';
 import AddTaskLog from './components/AddTaskLog'
 import TaskLogs from './components/TaskLog'
-
+import Test from './components/test'
 class App extends Component{
     constructor(props){
         super(props)
@@ -48,7 +48,7 @@ class App extends Component{
           addedTasks : [],
           addedTask : '',
           CreatedDate : '',//ここがポイント
-          Dates: [this.formatMonth(), this.formatDates()],//ここがポイント
+          Dates: [this.formatDates()],//ここがポイント
           isEnterPressed : false
         })
     }
@@ -64,7 +64,7 @@ class App extends Component{
         let EndsDay = FirstDay+6
         let Dates = []
         for(var i=FirstDay; i<=EndsDay; i++){
-            Dates.push(i)
+            Dates.push(["8/"+i, ''])
         }
         return Dates;
     }
@@ -91,6 +91,9 @@ class App extends Component{
             Dates={this.state.Dates}
             Tasks={this.state.Tasks}
             />
+            <div>
+                <Test/>
+            </div>
             </React.Fragment>
         )
     }
