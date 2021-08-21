@@ -1,0 +1,174 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #202124;
+}
+
+li {
+  list-style: none;
+}
+
+.AppName {
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  font-style: italic;
+}
+
+.TaskLogs {
+  margin-top: 40px;
+}
+
+.TaskLogs:first-child {
+  margin-top: 0;
+}
+
+.TaskLog {
+  width: 620px;
+  height: 210px;
+  border-radius: 20px;
+  padding: 10px;
+  background-color: white;
+  margin: 20px auto 0 auto;
+}
+
+.TaskGroupName {
+  font-size: 32px;
+  margin-left: 10px;
+}
+
+.Content {
+  position: relative;
+  margin: 10px 0 0 10px;
+}
+
+.DatesDatas {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  margin-left: 100px;
+  width: 500px;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Date {
+  width: 70px;
+  border-right: thin solid black;
+  border-bottom: thin solid black;
+  font-size: 16px;
+  text-align: center;
+}
+
+.Datas {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Data {
+  text-align: center;
+  border-bottom: thin solid black;
+  border-right: thin solid black;
+  line-height: 24px;
+}
+
+.Tasks {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100px;
+  padding-top: 19.333px;
+  border-right: thin solid black;
+}
+
+.Task {
+  border-bottom: thin solid black;
+  width: 100px;
+  text-align: center;
+}
+
+.Task:first-child {
+  border-top: thin solid black;
+}
+
+.addTaskLogs {
+  width: 541px;
+  margin: auto;
+  border: 0.1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.addTaskGroupName {
+  padding: 15px 0 15px 20px;
+}
+
+.addTaskGroupName input {
+  width: 99%;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+}
+
+.addTask {
+  padding: 6px 0 6px 20px;
+  border-top: 1px solid #BCBCBC;
+  border-bottom: 1px solid #BCBCBC;
+}
+
+.addTask input {
+  width: 99%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  color: #fff;
+}
+
+.addTaskGroupName p, .addTask p, .addTaskLogBtn p {
+  color: #BCBCBC;
+}
+
+.addTaskLogBtn {
+  padding: 23px 27px 7px 473px;
+}
+
+.addTaskLogBtn p {
+  font-size: 20px;
+}
+
+.addTaskLogBtn p:hover, .addTaskLogBtn p :active {
+  cursor: pointer;
+  color: #fff;
+}
+
+.addedTasks {
+  padding: 6px 0 6px 20px;
+  border-top: 0.3px solid #BCBCBC;
+}
+
+.addedTasks li {
+  list-style: inside;
+  color: white;
+  font-size: 20px;
+}
+/*# sourceMappingURL=style.css.map */
