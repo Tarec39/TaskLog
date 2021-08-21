@@ -1,16 +1,56 @@
-.addTaskLog{
-    margin: 40px auto 0 auto;
-    width: 180px;
+.addTaskLogs{
+    width: 541px;
+    margin: auto;
+    border: 0.4px solid #fff;
     border-radius: 10px;
-    background: white;
-    padding: 10px 0;
-    form{
-        margin: auto;
-        text-align: center;
+}
+
+.addTaskGroupName{
+    padding: 15px 0 15px 20px;
+    // p{font-size: 24px;}
+    input{
+        width: 99%;
+        font-size: 24px;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        color: white;
     }
-    .addTaskGroupName{width: 160px;}
-    .addTask{width: 140px; margin-top: 10px;}
-    button{
-        margin-top: 10px;
+}
+.addTask{
+    padding: 6px 0 6px 20px;
+    border-top: 1px solid #BCBCBC;
+    border-bottom: 1px solid #BCBCBC;
+    input{
+        width: 99%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        font-size: 20px;
+        color: #fff;
+    }
+}
+.addTaskGroupName, .addTask, .addTaskLogBtn{
+    p{color: #BCBCBC;}
+}
+.addTaskLogBtn{
+    padding: 23px 27px 7px 473px;
+    p{
+        font-size: 20px;
+        &:hover, :active{
+            cursor: pointer;
+            color: #fff;
+        }
+    }
+}
+
+.addedTasks{
+    padding: 6px 0 6px 20px;
+    border-top: 0.3px solid #BCBCBC;
+    // height: 37px;
+    li{
+        list-style: inside;
+        color: white;
+        font-size: 20px;
     }
 }
