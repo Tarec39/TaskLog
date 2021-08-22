@@ -112,8 +112,10 @@ li {
 .addTaskLogs {
   width: 541px;
   margin: auto;
-  border: 0.1px solid rgba(255, 255, 255, 0.8);
   border-radius: 10px;
+  border: 0.6px solid #BCBCBC;
+  -webkit-box-shadow: 0px 0px 10px 7px #0D0D0D66;
+          box-shadow: 0px 0px 10px 7px #0D0D0D66;
 }
 
 .addTaskGroupName {
@@ -130,9 +132,10 @@ li {
 }
 
 .addTask {
+  font-size: 27px;
   padding: 6px 0 6px 20px;
-  border-top: 1px solid #BCBCBC;
-  border-bottom: 1px solid #BCBCBC;
+  border-top: 0.3px solid #BCBCBC;
+  border-bottom: 0.3px solid #BCBCBC;
 }
 
 .addTask input {
@@ -161,14 +164,15 @@ li {
   color: #fff;
 }
 
-.addedTasks {
+.addedTasks li {
   padding: 6px 0 6px 20px;
   border-top: 0.3px solid #BCBCBC;
-}
-
-.addedTasks li {
   list-style: inside;
   color: white;
   font-size: 20px;
+}
+
+.addedTasks li:lang(ja) {
+  font-size: 18px;
 }
 /*# sourceMappingURL=style.css.map */
