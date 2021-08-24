@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import './style.scss';
 import AddTaskLogs from './components/Add.js'
-
+import TaskLogs from './components/TaskLog'
 
 class App extends Component{
     constructor(props){
@@ -13,8 +13,8 @@ class App extends Component{
     render(){
         return(
             <React.Fragment>
-            {/* <h1 className="AppName">TaskLog</h1> */}
             <AddTaskLogs />
+            <TaskLogs/>
             </React.Fragment>
         )
     }
