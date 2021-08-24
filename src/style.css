@@ -71,7 +71,7 @@ td {
   font-size: 19px;
   padding: 5px 13px 0 30px;
   border-left: none;
-  background-color: rgba(188, 188, 188, 0.3);
+  background-color: #4F5052;
 }
 
 .Task:before {
