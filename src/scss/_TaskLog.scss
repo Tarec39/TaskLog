@@ -1,93 +1,84 @@
-//font-sizeの変数
-$large: 32px;
-$medium: 16px;
-$smaill: 8px;
-
-//Task, Dateと同じ幅
-$sameWidth: 100px;
-
-//同じ枠線
-$sameBorder: thin solid black;
-
-
-.AppName{
-    color: white;
-    text-align: center;
-    padding-top: 20px; //適当
-    font-style: italic;
-}
-.TaskLogs{
-    margin-top: 40px; //適当
-    &:first-child{
-        margin-top: 0;
-    }
-}
 .TaskLog{
-    width: 620px;//要調整
-    height: 210px;//要調整
-    border-radius: 20px;//適当
-    padding: 10px;
-    background-color: white;
-    margin: 20px auto 0 auto;
+    width: 720px;
+    margin: auto;
+    margin-top: 50px;
+    border-radius: 10px;
+    border: 0.6px solid #BCBCBC;
+    box-shadow: 0px 0px 10px 7px #0D0D0D66;
+    color: white;
 }
+
 .TaskGroupName{
-    font-size: $large;
-    margin-left: 10px;//Contentのmarginと同じ
-
+    font-size: 24px;
+    padding: 24px 79px 24px 31px;
 }
-
 .Content{
-    position: relative;
-    margin: 10px 0 0 10px;//TaskGroupNameのmarginと同じ
-
-}
-
-.DatesDatas{
-    position: absolute;
-    display: flex;
-    flex-wrap: nowrap;
-    margin-left: $sameWidth;
-    width: 500px;//適当
+    // padding-left: 11px;
+    margin-bottom: 22px;
     overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
+    width: 600px;
+    scrollbar-arrow-color: none;
+    width: 100%;
+    // overflow-x: hidden;
 }
-
-
-.Date{
-    width: 70px; //適当に決めた数字
-    border-right: $sameBorder;
-    border-bottom: $sameBorder;
-    font-size: $medium;
+::-webkit-scrollbar {
+    display: none;
+}
+table{
+    border-collapse: collapse;
+    // table-layout: fixed;
+    // width: 600px;
+    // border-spacing: 0px 15px;
+}
+th, td{
+    font-weight: normal;
+    border: 0.3px solid rgba($color: #BCBCBC, $alpha: 0.7);
+    font-size: 17px;
+}
+td{
     text-align: center;
-
 }
-
-.Datas{
-    display: flex;
-    flex-direction: column;
+.active{
+    background-color: rgba($color: #BCBCBC, $alpha: .3);
 }
-.Data{
-    text-align: center;
-    border-bottom: $sameBorder;
-    border-right: $sameBorder;
-    line-height: 24px; //Taskの縦幅と同じ
-}
-
-.Tasks{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    width: $sameWidth;
-    padding-top: 19.333px; //Dateの縦幅と同じ
-    border-right: $sameBorder;
+.Blank{
+    border: none;
 }
 .Task{
-    border-bottom: $sameBorder;
-    width: $sameWidth;
-    text-align: center;
-    &:first-child{
-        border-top: $sameBorder;
+    white-space: nowrap;
+    position: sticky;
+    // display: block;
+    left: 0;
+    z-index: 1;
+    font-size: 19px;
+    padding: 5px 13px 0 30px;
+    border-left: none;
+    background-color: rgba($color: #BCBCBC, $alpha: .3);
+    &:before{
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        width: 100%;
+        height: 100%;
+        border: 0.3px solid rgba($color: #BCBCBC, $alpha: 0.7);
     }
 }
+.Date{
+    background-color: rgba($color: #BCBCBC, $alpha: .3);
+    border-top: none;
+    font-size: 17px;
+    padding: 8px 23px
+}
 
+.Data{
+    input{
+        font-size: 17px;
+        color: white;
+        width: 100%;
+        text-align: center;
+        border: none;
+        outline: none;
+        background-color: transparent;
+    }
+}
