@@ -1,58 +1,74 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
+import TaskLogs from './TaskLog'
 
+export const TaskLogContext = React.createContext()
 
 const AddTaskLogs = () =>{
-
     const [values, setValues] = useState({
         addTaskGroupName : '',
         addTask: ''
     })
+
     const [addedTasks, addTasks]=useState([])
+
     const [TaskLog, setTaskLog]  = useState({
+        createdDate : null,
         TaskGroupName: null,
-        Tasks: null
+        Tasks: []
     })
-
+    const value = TaskLog
+    const createDate = () =>{
+        let Dates = new Date()
+        return (Dates.getMonth()+1+'/'+ Dates.getDate());
+    }
     return(
-        <div className="addTaskLogs">
-            {console.log(addedTasks)}
-            <AddTaskGroupName 
-            handleChange={(e)=>{
-                if(e.target.value === '')return
-                setValues({...values, addTaskGroupName: e.target.value})}}
-            value={values.addTaskGroupName}
-            />
-            <AddedTasks 
-            addedTasks={addedTasks}
-             />
-            <AddTask
-            value={values.addTask}
-            handleChange={(e)=>
-                {setValues({...values, addTask: e.target.value})}}
-            handleKeyPress={(e)=>{
-                if(e.key === 'Enter'){
-                    if(values.addTask === '')return
-                    e.preventDefault()
-                    addTasks([...addedTasks, values.addTask])
-                    setValues({...values, addTask:''})
-                }
-            }}
-            />
-            <RegisterTaskLogBtn
-            handleSubmit={(e)=>{
-                setTaskLog({
-                    TaskGroupName: values.addTaskGroupName,
-                    Tasks: addedTasks
-                })
-            }}
-            />
-            {console.log(TaskLog)}
+        <div>
+            <div className="addTaskLogs">
+                <AddTaskGroupName 
+                handleChange={(e)=>{
+                    if(e.target.value === '')return
+                    setValues({...values, addTaskGroupName: e.target.value})}}
+                value={values.addTaskGroupName}
+                />
 
+                <AddedTasks 
+                addedTasks={addedTasks}
+                 />
+                <AddTask
+                value={values.addTask}
+                handleChange={(e)=>
+                    {setValues({...values, addTask: e.target.value})}}
+                handleKeyPress={(e)=>{
+                    if(e.key === 'Enter'){
+                        if(values.addTask === '')return
+                        e.preventDefault()
+                        addTasks([...addedTasks, values.addTask])
+                        setValues({...values, addTask:''})
+                    }
+                }}
+                />
+                <RegisterTaskLogBtn
+                handleSubmit={()=>{
+                    if(values.TaskGroupName === "" || addedTasks.length === 0) return;
+                    setTaskLog({
+                        createdDate : createDate(),
+                        TaskGroupName: values.addTaskGroupName,
+                        Tasks: addedTasks
+                    })
+                    addTasks([])
+                    setValues({
+                        ...values, addTaskGroupName:''
+                    })
+                }}
+                />
+            </div>
+            <TaskLogContext.Provider value={value}>
+                <TaskLogs />
+            </TaskLogContext.Provider>
         </div>
+
     )
 }
-
-
 
 const AddTaskGroupName = ({value, handleChange}) =>{
     return(
@@ -93,8 +109,6 @@ const AddedTasks = ({addedTasks}) =>{
         </div>
     )
 }
-
-
 
 const RegisterTaskLogBtn = ({handleSubmit}) =>{
     return(
