@@ -1,9 +1,4 @@
-export const initTaskLog = (taskLogsFromJsonUri) => {
-    return{
-        type: "INIT_TASKLOGS",
-        taskLogsFromJsonUri
-    }
-}
+export const ADD_TASKLOG = "ADD_TASKLOG"
 
 export const addTaskLog = (taskLog) => {
     const formatTaskLog = (obj) =>{
@@ -53,7 +48,7 @@ export const addTaskLog = (taskLog) => {
     taskLog = formatTaskLog(taskLog)
     
     return{
-        type: "ADD_TASKLOG",
+        type: ADD_TASKLOG,
         taskLog
     }
 }

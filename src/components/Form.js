@@ -1,23 +1,17 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { addTaskLog } from '../actions/actions'
-import { DispatchContext } from './App'
 import styled from 'styled-components'
 
 const Form = () =>{
-    //Dispatch
-    const dispatch  = useContext(DispatchContext)
     //仮置き用
+    const dispatch = useDispatch()
     const [values, setValues] = useState({
         addTaskGroupName : '',
-        addedTasks : [],
         addTask: ''
     })
-    //初期化用
-    const initialState = {
-        addtaskGroupName : '',
-        addedTasks : [],
-        addTask : ''
-    }
+    const [addedTasks, setAddedTasks] = useState([])
+
     //格納用
     const [taskLog, setTaskLog]  = useState({
         createdDate : null,
@@ -28,7 +22,7 @@ const Form = () =>{
     //関数
     const createDate = () =>{
         let Dates = new Date()
-        return (Dates.getFullYear()+'/'+Dates.getMonth()+1+'/'+ Dates.getDate());
+        return (Dates.getFullYear()+'/'+(Dates.getMonth()+1)+'/'+ Dates.getDate());
     }
 
     return(
@@ -43,7 +37,7 @@ const Form = () =>{
 
                 {/* AddedTasksを出力 */}
                 <AddedTasks 
-                addedTasks={values.addedTasks}
+                addedTasks={addedTasks}
                  />
 
                 {/* AddTaskを入力、AddedTasksに追加、追加後にAddTaskを初期化 */}
@@ -59,8 +53,8 @@ const Form = () =>{
                         e.preventDefault()
                         //現段階では動作確認ができないため、上記の内容をに分割して行う。
                         //単一の処理を確認できるようになれば、そちらを採用する。
-                        setValues({...values, addedTasks:values.addTasks})
-                        setValues({...values, addTask: ''})
+                        setAddedTasks([...addedTasks, values.addTask])
+                        setValues({...values, addTask:''})
                     }
                 }}
                 />
@@ -69,17 +63,20 @@ const Form = () =>{
                 {/* // ここでDispatchを実行。actionはADD_TASKLOG */}
                 <TaskLogRegister
                 handleSubmit={()=>{
-                    if(values.TaskGroupName === "" || values.addedTasks.length === 0) return;
+                    if(values.TaskGroupName === "" || addedTasks.length === 0){
+                        return null
+                    }
                     //TaskLogに入力内容を格納
-                    setTaskLog( {
+                    setTaskLog({
                         createdDate : createDate(),
                         TaskGroupName: values.addTaskGroupName,
-                        Tasks: values.addedTasks
+                        Tasks: addedTasks
                     })
                     //ADD_TASKLOGをDispatch
                     dispatch(addTaskLog(taskLog))
                     //初期化
-                    setValues({...values, initialState})
+                    setAddedTasks([])
+                    setValues({addTaskGroupName: '', addTask:''})
                 }}
                 />
             </AddTaskLogStyle>

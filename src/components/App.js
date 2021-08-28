@@ -1,20 +1,14 @@
-import React, { createContext } from "react";
-import { useRender } from "../hooks/render";
-import Form from "./Form.js";
-import TaskLogs from "./TaskLog";
+import React, {Fragment} from 'react'
+import Form from './Form'
+import TaskLogs from './TaskLog'
 
-export const DispatchContext = createContext();
+const App = () =>{
+  return(
+    <Fragment>
+      <Form />
+      <TaskLogs />
+    </Fragment>
+  )
+}
 
-const App = () => {
-  const [taskLogs, dispatch] = useRender(
-    "http://myjson.dit.upm.es/api/bins/avl"
-  );
-  return (
-    <DispatchContext dispatch={dispatch}>
-      <Form/>
-      <TaskLogs logs={taskLogs}/>
-    </DispatchContext>
-  );
-};
-
-export default App;
+export default App
