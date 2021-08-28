@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 const TaskLogs = () =>{
-
-
     return(
         <TaskLogsStyle>
         <TaskLogStyle>

@@ -1,30 +1,39 @@
-import React, {useState} from 'react'
+import React, { useState, useContext } from 'react'
+import { addTaskLog } from '../actions/actions'
+import { DispatchContext } from './App'
 import styled from 'styled-components'
 
-const AddTaskLogs = () =>{
+const Form = () =>{
+    //Dispatch
+    const dispatch  = useContext(DispatchContext)
     //仮置き用
     const [values, setValues] = useState({
         addTaskGroupName : '',
+        addedTasks : [],
         addTask: ''
     })
-    //仮置き用（配列）
-    const [addedTasks, addTasks]=useState([])
-
+    //初期化用
+    const initialState = {
+        addtaskGroupName : '',
+        addedTasks : [],
+        addTask : ''
+    }
     //格納用
-    const [TaskLog, setTaskLog]  = useState({
+    const [taskLog, setTaskLog]  = useState({
         createdDate : null,
         TaskGroupName: null,
         Tasks: []
     })
-    
+
     //関数
     const createDate = () =>{
         let Dates = new Date()
-        return (Dates.getMonth()+1+'/'+ Dates.getDate());
+        return (Dates.getFullYear()+'/'+Dates.getMonth()+1+'/'+ Dates.getDate());
     }
 
     return(
             <AddTaskLogStyle>
+                {/* TaskGroupNameを入力*/}
                 <AddTaskGroupName 
                 handleChange={(e)=>{
                     if(e.target.value === '')return
@@ -32,34 +41,45 @@ const AddTaskLogs = () =>{
                 value={values.addTaskGroupName}
                 />
 
+                {/* AddedTasksを出力 */}
                 <AddedTasks 
-                addedTasks={addedTasks}
+                addedTasks={values.addedTasks}
                  />
+
+                {/* AddTaskを入力、AddedTasksに追加、追加後にAddTaskを初期化 */}
                 <AddTask
                 value={values.addTask}
+                // AddTaskの入力
                 handleChange={(e)=>
                     {setValues({...values, addTask: e.target.value})}}
+                //AddedTasksへの追加、及びAddTaskの初期化
                 handleKeyPress={(e)=>{
                     if(e.key === 'Enter'){
                         if(values.addTask === '')return
                         e.preventDefault()
-                        addTasks([...addedTasks, values.addTask])
-                        setValues({...values, addTask:''})
+                        //現段階では動作確認ができないため、上記の内容をに分割して行う。
+                        //単一の処理を確認できるようになれば、そちらを採用する。
+                        setValues({...values, addedTasks:values.addTasks})
+                        setValues({...values, addTask: ''})
                     }
                 }}
                 />
+
+                {/* 入力内容を反映させる手続き */}
+                {/* // ここでDispatchを実行。actionはADD_TASKLOG */}
                 <TaskLogRegister
                 handleSubmit={()=>{
-                    if(values.TaskGroupName === "" || addedTasks.length === 0) return;
-                    setTaskLog({
+                    if(values.TaskGroupName === "" || values.addedTasks.length === 0) return;
+                    //TaskLogに入力内容を格納
+                    setTaskLog( {
                         createdDate : createDate(),
                         TaskGroupName: values.addTaskGroupName,
-                        Tasks: addedTasks
+                        Tasks: values.addedTasks
                     })
-                    addTasks([])
-                    setValues({
-                        ...values, addTaskGroupName:''
-                    })
+                    //ADD_TASKLOGをDispatch
+                    dispatch(addTaskLog(taskLog))
+                    //初期化
+                    setValues({...values, initialState})
                 }}
                 />
             </AddTaskLogStyle>
@@ -177,4 +197,4 @@ const TaskLogRegisterStyle = styled.div`
     }
 }
 `;
-export default AddTaskLogs
+export default Form
