@@ -44,11 +44,9 @@ export const addTaskLog = (taskLog) => {
         }
         return object
     }
-
-    taskLog = formatTaskLog(taskLog)
-    
+    const TaskLog = formatTaskLog(taskLog)
     return{
         type: ADD_TASKLOG,
-        taskLog
+        TaskLog
     }
 }

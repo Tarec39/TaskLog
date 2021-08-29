@@ -3,110 +3,101 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 const TaskLogs = () =>{
-    const taskLogs = useSelector(state=>state.addTaskLog)
+    const TaskLogs = useSelector(state=>state)
     return(
         <TaskLogsStyle>
-            {console.log(taskLogs)}
-            <TaskLogStyle>
-                <TaskGroupNameStyle>TaskGroupName</TaskGroupNameStyle>
-                <ContentStyle>
-                <table>
-                    <tbody>
-                    <DatesStyle>
-                        <BlankStyle></BlankStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                        <DateStyle>8/1</DateStyle>
-                    </DatesStyle>
-                    <TasknDataStyle>
-                        <TaskStyle>{}</TaskStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                    </TasknDataStyle>
-                    <TasknDataStyle>
-                    <TaskStyle>サンプルタスク①</TaskStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                        <DataStyle><input/></DataStyle>
-                    </TasknDataStyle>
-                    </tbody>
-                </table>
-                </ContentStyle>
-            </TaskLogStyle>
         </TaskLogsStyle>
+
     )
 }
+
+const TaskLog = (key) =>{
+    return(
+    <TaskLogStyle key={key}>
+        <TaskGroupName/>
+        {/* Content */}
+    </TaskLogStyle>
+    )
+}
+const Content = () =>{
+    return(
+        <ContentStyle>
+            <table>
+                <tbody>
+                    {/* Dates */}
+                    {/* TasknData*/}
+                </tbody>
+            </table>
+        </ContentStyle>
+    )
+}
+const TaskGroupName = () =>{
+    return(
+        <TaskGroupNameStyle>TaskGroupName</TaskGroupNameStyle>
+    )
+}
+const Dates = () =>{
+    return(
+        <DatesStyle>
+            <BlankStyle></BlankStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+            <DateStyle>8/1</DateStyle>
+        </DatesStyle> 
+    )
+}
+const TasknData = () =>{
+    return(
+        <TasknDataStyle>
+        <TaskStyle></TaskStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+        <DataStyle><input/></DataStyle>
+    </TasknDataStyle>
+    )
+}
+
 
 //Styled-Components-CSS
 const TaskLogsStyle = styled.div`

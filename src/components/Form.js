@@ -4,20 +4,15 @@ import { addTaskLog } from '../actions/actions'
 import styled from 'styled-components'
 
 const Form = () =>{
-    //仮置き用
+    //Dispatch
     const dispatch = useDispatch()
+
+    //格納用
     const [values, setValues] = useState({
         addTaskGroupName : '',
         addTask: ''
     })
     const [addedTasks, setAddedTasks] = useState([])
-
-    //格納用
-    const [taskLog, setTaskLog]  = useState({
-        createdDate : null,
-        TaskGroupName: null,
-        Tasks: []
-    })
 
     //関数
     const createDate = () =>{
@@ -25,6 +20,10 @@ const Form = () =>{
         return (Dates.getFullYear()+'/'+(Dates.getMonth()+1)+'/'+ Dates.getDate());
     }
 
+    const initializeState = () =>{
+        setValues({addTaskGroupName: '', addTask:''})
+        setAddedTasks([])
+    }
     return(
             <AddTaskLogStyle>
                 {/* TaskGroupNameを入力*/}
@@ -60,23 +59,21 @@ const Form = () =>{
                 />
 
                 {/* 入力内容を反映させる手続き */}
-                {/* // ここでDispatchを実行。actionはADD_TASKLOG */}
                 <TaskLogRegister
                 handleSubmit={()=>{
                     if(values.TaskGroupName === "" || addedTasks.length === 0){
                         return null
                     }
-                    //TaskLogに入力内容を格納
-                    setTaskLog({
-                        createdDate : createDate(),
+                    //taskLogに入力内容を格納
+                    const taskLog = {
+                        CreatedDate : createDate(),
                         TaskGroupName: values.addTaskGroupName,
                         Tasks: addedTasks
-                    })
+                    }
                     //ADD_TASKLOGをDispatch
                     dispatch(addTaskLog(taskLog))
                     //初期化
-                    setAddedTasks([])
-                    setValues({addTaskGroupName: '', addTask:''})
+                    initializeState()
                 }}
                 />
             </AddTaskLogStyle>

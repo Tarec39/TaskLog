@@ -1,7 +1,14 @@
-import { combineReducers } from "redux";
+import { ADD_TASKLOG } from '../actions/actions'
+const reducer = (state, action) =>{
+    switch(action.type) {
+        case ADD_TASKLOG:
+            return [
+                ...state,
+                action.TaskLog
+            ]
 
-import addTaskLog from "./addTaskLog";
-
-const rootReducer =combineReducers({addTaskLog})
-
-export default rootReducer
+        default:
+            return state
+    }
+}
+export default reducer
