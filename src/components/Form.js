@@ -38,7 +38,7 @@ const Form = () =>{
                 <AddedTasks 
                 addedTasks={addedTasks}
                  />
-
+                
                 {/* AddTaskを入力、AddedTasksに追加、追加後にAddTaskを初期化 */}
                 <AddTask
                 value={values.addTask}

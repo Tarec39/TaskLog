@@ -1,100 +1,63 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import {  useSelector} from 'react-redux'
 import styled from 'styled-components'
 
 const TaskLogs = () =>{
-    const TaskLogs = useSelector(state=>state)
+    const TaskLogs = useSelector(state=>state.TaskLogs)
     return(
         <TaskLogsStyle>
+            {TaskLogs.map((Log, i) => (
+                <TaskLogStyle key={i}>
+                    <TaskGroupName className="AAA" Name={Log.TaskGroupName}/>
+                    <ContentStyle>
+                    <table>
+                        <tbody>
+                            <Dates Tasks={Log.Tasks}/>
+                            <TasknData Tasks={Log.Tasks}/>
+                        </tbody>
+                    </table>
+
+                    </ContentStyle>
+                </TaskLogStyle>
+            ))}
+            <button onClick={(e)=>{
+                e.preventDefault()
+                console.log(TaskLogs)
+            }}>更新</button>
         </TaskLogsStyle>
-
     )
 }
 
-const TaskLog = (key) =>{
+const TaskGroupName = ({Name}) =>{
     return(
-    <TaskLogStyle key={key}>
-        <TaskGroupName/>
-        {/* Content */}
-    </TaskLogStyle>
+        <TaskGroupNameStyle>{Name}</TaskGroupNameStyle>
     )
 }
-const Content = () =>{
-    return(
-        <ContentStyle>
-            <table>
-                <tbody>
-                    {/* Dates */}
-                    {/* TasknData*/}
-                </tbody>
-            </table>
-        </ContentStyle>
-    )
-}
-const TaskGroupName = () =>{
-    return(
-        <TaskGroupNameStyle>TaskGroupName</TaskGroupNameStyle>
-    )
-}
-const Dates = () =>{
+
+const Dates = ({Tasks}) =>{
+    let Task=Tasks[0]["Data"]
     return(
         <DatesStyle>
             <BlankStyle></BlankStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
-            <DateStyle>8/1</DateStyle>
+            {Object.keys(Task).map((date, i) =>(
+                <DateStyle key={i}>{date}</DateStyle>
+            ))}
         </DatesStyle> 
     )
 }
-const TasknData = () =>{
+const TasknData = ({Tasks}) =>{
     return(
-        <TasknDataStyle>
-        <TaskStyle></TaskStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-        <DataStyle><input/></DataStyle>
-    </TasknDataStyle>
+        <tfoot>
+            {Object.keys(Tasks).map((Task, i) =>(
+                <TasknDataStyle key={i}>
+                <TaskStyle>{Tasks[i]["Task"]}</TaskStyle>
+                {console.log(Tasks[i]["Data"])}
+                {Object.keys(Tasks[i]["Data"]).map((key, j)=>(
+                    <DataStyle key={j}><input value={Tasks[i]["Data"][key]}/></DataStyle>
+                    ))}
+            </TasknDataStyle>
+            ))}
+        </tfoot>
     )
 }
 
@@ -147,6 +110,13 @@ const DateStyle = styled.th`
 
 const BlankStyle = styled.th`
     border: none;
+    font-weight: normal;
+    border: 0.3px solid #4F5052;
+    font-size: 17px;
+    background-color: #4F5052;
+    border-top: none;
+    font-size: 17px;
+    padding: 8px 23px
 `;
 
 const TasknDataStyle = styled.tr``;
@@ -178,9 +148,11 @@ const DataStyle = styled.td`
     font-size: 17px;
     text-align: center;
     input{
+        width: 36.5px;
+        // display: block;
         font-size: 17px;
         color: white;
-        width: 100%;
+        // width: 100%;
         text-align: center;
         border: none;
         outline: none;
