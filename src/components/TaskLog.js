@@ -1,29 +1,42 @@
-import React, { useState } from 'react'
+import React , { useState, useEffect }from 'react'
 import {  useSelector} from 'react-redux'
+import { connect } from 'react-redux'
+import {store} from '../store/store'
 import styled from 'styled-components'
 
 const TaskLogs = () =>{
     const TaskLogs = useSelector(state=>state.TaskLogs)
+    const [notice, setNotice] = useState("")
+    useEffect(()=>{
+        store.subscribe(()=>{
+            if(notice === ""){
+                setNotice(1)
+            }else{
+                setNotice("")
+            }
+        })
+    })
     return(
         <TaskLogsStyle>
-            {TaskLogs.map((Log, i) => (
+            {Object.keys(TaskLogs).map((Log, i) => (
                 <TaskLogStyle key={i}>
-                    <TaskGroupName className="AAA" Name={Log.TaskGroupName}/>
+                    <TaskGroupName Name={TaskLogs[i]["TaskGroupName"]}/>
                     <ContentStyle>
                     <table>
                         <tbody>
-                            <Dates Tasks={Log.Tasks}/>
-                            <TasknData Tasks={Log.Tasks}/>
+                            <Dates Tasks={TaskLogs[i]["Tasks"]}/>
                         </tbody>
+                            <TasknData Tasks={TaskLogs[i]["Tasks"]}/>
                     </table>
 
                     </ContentStyle>
                 </TaskLogStyle>
             ))}
+
             <button onClick={(e)=>{
                 e.preventDefault()
-                console.log(TaskLogs)
-            }}>更新</button>
+                console.dir(TaskLogs)
+            }}>seeUseSelector</button>
         </TaskLogsStyle>
     )
 }
@@ -35,7 +48,7 @@ const TaskGroupName = ({Name}) =>{
 }
 
 const Dates = ({Tasks}) =>{
-    let Task=Tasks[0]["Data"]
+    let Task=Tasks[0]["Date"]
     return(
         <DatesStyle>
             <BlankStyle></BlankStyle>
@@ -51,9 +64,8 @@ const TasknData = ({Tasks}) =>{
             {Object.keys(Tasks).map((Task, i) =>(
                 <TasknDataStyle key={i}>
                 <TaskStyle>{Tasks[i]["Task"]}</TaskStyle>
-                {console.log(Tasks[i]["Data"])}
-                {Object.keys(Tasks[i]["Data"]).map((key, j)=>(
-                    <DataStyle key={j}><input value={Tasks[i]["Data"][key]}/></DataStyle>
+                {Object.keys(Tasks[i]["Date"]).map((key, j)=>(
+                    <DataStyle key={j}><input value={Tasks[i]["Date"][key]}/></DataStyle>
                     ))}
             </TasknDataStyle>
             ))}
@@ -160,4 +172,8 @@ const DataStyle = styled.td`
     }
 `;
 
-export default TaskLogs
+const mapStateToProps = state =>({
+    state: state.TaskLogs
+})
+
+export default connect(mapStateToProps)(TaskLogs)

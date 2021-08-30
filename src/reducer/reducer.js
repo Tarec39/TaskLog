@@ -7,7 +7,7 @@ const initialState = {
             "Tasks": [
               {
             "Task": "FirstTask",
-            "Data": {
+            "Date": {
               "8/1": "11",
               "8/2": "",
               "8/3": "",
@@ -25,7 +25,7 @@ const initialState = {
               },
               {
             "Task": "SecondTask",
-            "Data": {
+            "Date": {
               "8/1": "2",
               "8/2": "",
               "8/3": "",
@@ -43,7 +43,7 @@ const initialState = {
               },
               {
             "Task": "ThirdTask",
-            "Data": {
+            "Date": {
               "8/1": "300",
               "8/2": "",
               "8/3": "",
@@ -66,14 +66,17 @@ const initialState = {
 
 const reducer = (state = initialState, action) =>{
     switch(action.type) {
-        case ADD_TASKLOG:
+        case ADD_TASKLOG:{
             return {
                 ...state,
                 "TaskLogs" :[...state.TaskLogs, action.TaskLog]
             }
+          }
 
-        default:
-            return state
+        default:{
+          return state
+        }
     }
 }
+
 export default reducer
