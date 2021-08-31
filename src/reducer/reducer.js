@@ -1,4 +1,5 @@
-import { ADD_TASKLOG } from '../actions/actions'
+import { ADD_TASKLOG, UPDATE_TASKLOG, DELETE_TASKLOG, UPDATE_TASKGROUPNAME} from '../actions/actions'
+import TaskLogs from '../components/TaskLog'
 const initialState = {
     "TaskLogs" : [
         {
@@ -69,10 +70,43 @@ const reducer = (state = initialState, action) =>{
         case ADD_TASKLOG:{
             return {
                 ...state,
-                "TaskLogs" :[...state.TaskLogs, action.TaskLog]
+                TaskLogs :[...state.TaskLogs, action.TaskLog]
             }
           }
+        
+        case UPDATE_TASKLOG:{
+          let i = action.data[0]
+          let j = action.data[1]
+          let k = action.data[2]
+          let value = action.data[3]
 
+          return {
+            ...state,
+            TaskLogs: state.TaskLogs[i].map((TaskLog, x) => x===)
+          }
+        }
+        case UPDATE_TASKGROUPNAME:{
+          let i = action.taskGroupName[0]
+          let taskGroupName = action.taskGroupName[1]
+
+          return{
+            ...state,
+            TaskLogs:{
+              ...state.TaskLogs,
+              [i]:{
+                ...state.TaskLogs[i],
+                TaskGroupName: taskGroupName
+              }
+            }
+          }
+        }
+        case DELETE_TASKLOG:{
+          // delete state.TaskLogs[action.index]
+          return{
+            ...state,
+            TaskLogs: state.TaskLogs.filter((log, i) => i!==action.index)
+          }
+        }
         default:{
           return state
         }

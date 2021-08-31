@@ -1,4 +1,7 @@
 export const ADD_TASKLOG = "ADD_TASKLOG"
+export const UPDATE_TASKLOG = "UPDATE_TASKLOG"
+export const DELETE_TASKLOG = "DELETE_TASKLOG"
+export const UPDATE_TASKGROUPNAME = "UPDATE_TASKGROUPNAME"
 
 export const addTaskLog = (taskLog) => {
     const formatTaskLog = (obj) =>{
@@ -45,8 +48,46 @@ export const addTaskLog = (taskLog) => {
         return object
     }
     const TaskLog = formatTaskLog(taskLog)
+
     return{
         type: ADD_TASKLOG,
         TaskLog
+    }
+}
+
+export const updateTaskLog = (data) =>{
+
+    let dataValue = Object.values(data).join()
+    let dataString = Object.keys(data).join('-')
+    dataString=dataString.split('-')
+    data = []
+    dataString.map((dataInt, i) =>{
+        if(i===2){data.push(dataInt)
+        }else{data.push(parseInt(dataInt, 10))}
+    })
+
+    data.push(dataValue)
+    return{
+        type:UPDATE_TASKLOG,
+        data
+    }
+}
+
+export const deleteTaskLog = (index) =>{
+    return{
+        type:DELETE_TASKLOG,
+        index
+    }
+}
+
+export const updateTaskGroupName = (taskGroupName) =>{
+    let taskGroupNameInt = Object.keys(taskGroupName).join('')
+    taskGroupNameInt = parseInt(taskGroupNameInt,10) 
+    let taskGroupNameValue = Object.values(taskGroupName).join('')
+    taskGroupName = [taskGroupNameInt, taskGroupNameValue]
+    
+    return{
+        type:UPDATE_TASKGROUPNAME,
+        taskGroupName
     }
 }

@@ -1,12 +1,15 @@
 import React , { useState, useEffect }from 'react'
-import {  useSelector} from 'react-redux'
-import { connect } from 'react-redux'
-import {store} from '../store/store'
+import {  useSelector, useDispatch } from 'react-redux'
+import { store } from '../store/store'
+import { updateTaskLog, deleteTaskLog, updateTaskGroupName} from '../actions/actions'
 import styled from 'styled-components'
 
 const TaskLogs = () =>{
+    const dispatch = useDispatch()
     const TaskLogs = useSelector(state=>state.TaskLogs)
     const [notice, setNotice] = useState("")
+    const [taskGroupName, setTaskGroupName] = useState({})
+    const [value, setValue] =useState({})
     useEffect(()=>{
         store.subscribe(()=>{
             if(notice === ""){
@@ -14,36 +17,69 @@ const TaskLogs = () =>{
             }else{
                 setNotice("")
             }
+            console.log(TaskLogs)
         })
     })
     return(
         <TaskLogsStyle>
-            {Object.keys(TaskLogs).map((Log, i) => (
+            
+            {
+            
+            Object.keys(TaskLogs).map((Log, i) => (
                 <TaskLogStyle key={i}>
-                    <TaskGroupName Name={TaskLogs[i]["TaskGroupName"]}/>
+                    <TaskGroupName 
+                    Name={TaskLogs[i]["TaskGroupName"]}
+                    i={i}
+                    handleClick={(e)=>{
+                        e.preventDefault()
+                        dispatch(deleteTaskLog(i))
+                    }}
+                    handleChange={(e)=>{
+                        e.preventDefault()
+                        setTaskGroupName({...taskGroupName, [e.target.name]:[e.target.value]})
+                    }}
+                    handleBlur={(e)=>{
+                        e.preventDefault()
+                        if(!Object.keys(taskGroupName).length)return''
+                        // dispatch(updateTaskGroupName(taskGroupName))
+                        setTaskGroupName({})
+                    }}
+                    />
                     <ContentStyle>
                     <table>
                         <tbody>
                             <Dates Tasks={TaskLogs[i]["Tasks"]}/>
                         </tbody>
-                            <TasknData Tasks={TaskLogs[i]["Tasks"]}/>
+                            <TasknData
+                            Tasks={TaskLogs[i]["Tasks"]}
+                            i={i}
+                            handleChange={(e)=>{
+                                e.preventDefault()
+                                setValue({...value, [e.target.name]:[e.target.value]})
+                            }}
+                            handleBlur={(e)=>{
+                                e.preventDefault()
+                                if(!Object.keys(value).length)return''
+                                // dispatch(updateTaskLog(value))
+                                setValue({})
+                            }}
+                            />
                     </table>
 
                     </ContentStyle>
                 </TaskLogStyle>
             ))}
 
-            <button onClick={(e)=>{
-                e.preventDefault()
-                console.dir(TaskLogs)
-            }}>seeUseSelector</button>
         </TaskLogsStyle>
     )
 }
 
-const TaskGroupName = ({Name}) =>{
+const TaskGroupName = ({Name, handleChange,handleBlur,handleClick,i}) =>{
     return(
-        <TaskGroupNameStyle>{Name}</TaskGroupNameStyle>
+        <TaskGroupNameStyle>
+            <input name={i} defaultValue={Name} onChange={handleChange} onBlur={handleBlur}/>
+            <button onClick={handleClick}>削除</button>
+        </TaskGroupNameStyle>
     )
 }
 
@@ -52,20 +88,26 @@ const Dates = ({Tasks}) =>{
     return(
         <DatesStyle>
             <BlankStyle></BlankStyle>
-            {Object.keys(Task).map((date, i) =>(
-                <DateStyle key={i}>{date}</DateStyle>
+            {Object.keys(Task).map((date, j) =>(
+                <DateStyle key={j}>{date}</DateStyle>
             ))}
         </DatesStyle> 
     )
 }
-const TasknData = ({Tasks}) =>{
+const TasknData = ({Tasks, handleChange, handleBlur, i}) =>{
     return(
         <tfoot>
-            {Object.keys(Tasks).map((Task, i) =>(
-                <TasknDataStyle key={i}>
-                <TaskStyle>{Tasks[i]["Task"]}</TaskStyle>
-                {Object.keys(Tasks[i]["Date"]).map((key, j)=>(
-                    <DataStyle key={j}><input value={Tasks[i]["Date"][key]}/></DataStyle>
+            {Object.keys(Tasks).map((Task, j) =>(
+                <TasknDataStyle key={j}>
+                <TaskStyle>{Tasks[j]["Task"]}</TaskStyle>
+                {Object.keys(Tasks[j]["Date"]).map((key, k)=>(
+                    <DataStyle key={k}>
+                        <input 
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name={i+"-" + j + "-"+key}
+                        defaultValue={Tasks[j]["Date"][key]}/>
+                    </DataStyle>
                     ))}
             </TasknDataStyle>
             ))}
@@ -91,7 +133,18 @@ const TaskLogStyle = styled.div`
 
 const TaskGroupNameStyle = styled.div`
     font-size: 24px;
-    padding: 24px 79px 24px 31px;
+    padding: 24px 10px 24px 31px;
+    input{
+        border: none;
+        font-size: 24px;
+        color: white;
+        width: 90%;
+        background-color: transparent;
+        outline: none;
+    }
+    button{
+        float: right;
+    }
 `;
 
 const ContentStyle = styled.div`
@@ -122,13 +175,6 @@ const DateStyle = styled.th`
 
 const BlankStyle = styled.th`
     border: none;
-    font-weight: normal;
-    border: 0.3px solid #4F5052;
-    font-size: 17px;
-    background-color: #4F5052;
-    border-top: none;
-    font-size: 17px;
-    padding: 8px 23px
 `;
 
 const TasknDataStyle = styled.tr``;
@@ -144,6 +190,7 @@ const TaskStyle = styled.th`
     padding: 5px 13px 0 30px;
     border-left: none;
     background-color: #4F5052;
+    text-align: center;
     &:before{
         content: "";
         position: absolute;
@@ -152,6 +199,8 @@ const TaskStyle = styled.th`
         width: 100%;
         height: 100%;
         border: 0.3px solid #4F5052;
+        text-align: center;
+
     }
 `;
 const DataStyle = styled.td`
@@ -172,8 +221,4 @@ const DataStyle = styled.td`
     }
 `;
 
-const mapStateToProps = state =>({
-    state: state.TaskLogs
-})
-
-export default connect(mapStateToProps)(TaskLogs)
+export default TaskLogs
