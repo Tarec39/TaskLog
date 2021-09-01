@@ -41,7 +41,7 @@ const TaskLogs = () =>{
                     handleBlur={(e)=>{
                         e.preventDefault()
                         if(!Object.keys(taskGroupName).length)return''
-                        // dispatch(updateTaskGroupName(taskGroupName))
+                        dispatch(updateTaskGroupName(taskGroupName))
                         setTaskGroupName({})
                     }}
                     />
@@ -60,7 +60,7 @@ const TaskLogs = () =>{
                             handleBlur={(e)=>{
                                 e.preventDefault()
                                 if(!Object.keys(value).length)return''
-                                // dispatch(updateTaskLog(value))
+                                dispatch(updateTaskLog(value))
                                 setValue({})
                             }}
                             />

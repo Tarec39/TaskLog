@@ -75,16 +75,26 @@ const reducer = (state = initialState, action) =>{
           }
         
         case UPDATE_TASKLOG:{
-          let i = action.data[0]
-          let j = action.data[1]
-          let k = action.data[2]
-          let value = action.data[3]
-
-          return {
-            ...state,
-            TaskLogs: state.TaskLogs[i].map((TaskLog, x) => x===)
-          }
+          const [i, j, k, value] = action.data;
+          
+          const nextDate = {
+            ...state.TaskLogs[i].Tasks[j].Date,
+            [k]: value,
+          };
+          
+          const nextTasks = state.TaskLogs[i].Tasks.map((e, index) => ({
+            ...e,
+            Date: index === j ? nextDate : e.Date,
+          }));
+          
+          const nextTaskLogs = state.TaskLogs.map((e, index) => ({
+            ...e,
+            Tasks: index === i ? nextTasks : e.Tasks,
+          }));
+          
+          return { TaskLogs: nextTaskLogs };
         }
+
         case UPDATE_TASKGROUPNAME:{
           let i = action.taskGroupName[0]
           let taskGroupName = action.taskGroupName[1]
@@ -114,3 +124,4 @@ const reducer = (state = initialState, action) =>{
 }
 
 export default reducer
+
