@@ -1,112 +1,141 @@
-import React from 'react'
+import React , { useState, useEffect }from 'react'
+import {  useSelector, useDispatch } from 'react-redux'
+import { store } from '../store/store'
+import { updateTaskLog, deleteTaskLog, updateTaskGroupName, updateTask} from '../actions/actions'
 import styled from 'styled-components'
 
 const TaskLogs = () =>{
-
-
+    const dispatch = useDispatch()
+    const TaskLogs = useSelector(state=>state.TaskLogs)
+    const [notice, setNotice] = useState("")
+    const [task, setTask] =useState({})
+    const [taskGroupName, setTaskGroupName] = useState({})
+    const [value, setValue] =useState({})
+    useEffect(()=>{
+        store.subscribe(()=>{
+            if(notice === ""){
+                setNotice(1)
+            }else{
+                setNotice("")
+            }
+        })
+    })
     return(
         <TaskLogsStyle>
-        <TaskLogStyle>
-            <TaskGroupNameStyle>TaskGroupName</TaskGroupNameStyle>
-            <ContentStyle>
-            <table>
-                <tbody>
+            {Object.keys(TaskLogs).map((Log, i) => (
+                <TaskLogStyle key={i}>
+                    <TaskGroupName 
+                    Name={TaskLogs[i]["TaskGroupName"]}
+                    i={i}
+                    handleClick={(e)=>{
+                        e.preventDefault()
+                        dispatch(deleteTaskLog(i))
+                    }}
+                    handleChange={(e)=>{
+                        e.preventDefault()
+                        setTaskGroupName({...taskGroupName, [e.target.name]:[e.target.value]})
+                    }}
+                    handleBlur={(e)=>{
+                        e.preventDefault()
+                        if(!Object.keys(taskGroupName).length)return''
+                        dispatch(updateTaskGroupName(taskGroupName))
+                        setTaskGroupName({})
+                    }}
+                    />
+                    <ContentStyle>
+                    <table>
+                        <tbody>
+                            <Dates Tasks={TaskLogs[i]["Tasks"]}/>
+                        </tbody>
+                            <TasknData
+                            Tasks={TaskLogs[i]["Tasks"]}
+                            i={i}
+                            handleChange={(e)=>{
+                                e.preventDefault()
+                                setValue({...value, [e.target.name]:[e.target.value]})
+                            }}
+                            handleChange_a={(e)=>{
+                                e.preventDefault()
+                                setTask({...task, [e.target.name]:[e.target.value]})
+                            }}
+                            handleBlur={(e)=>{
+                                e.preventDefault()
+                                if(!Object.keys(value).length)return''
+                                dispatch(updateTaskLog(value))
+                                setValue({})
+                            }}
+                            handleBlur_a={(e)=>{
+                                e.preventDefault()
+                                if(!Object.keys(task).length)return''
+                                dispatch(updateTask(task))
+                                setTask({})
+                            }}
+                            />
+                    </table>
 
-                <DatesStyle>
-                    <BlankStyle></BlankStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                    <DateStyle>8/1</DateStyle>
-                </DatesStyle>
-                <TasknDataStyle>
-                    <TaskStyle>サンプルタスク①</TaskStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                </TasknDataStyle>
-                <TasknDataStyle>
-                <TaskStyle>サンプルタスク①</TaskStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                    <DataStyle><input/></DataStyle>
-                </TasknDataStyle>
-                </tbody>
-            </table>
-            </ContentStyle>
-            </TaskLogStyle>
+                    </ContentStyle>
+                </TaskLogStyle>
+            ))}
+
         </TaskLogsStyle>
     )
 }
+
+const TaskGroupName = ({Name, handleChange,handleBlur,handleClick,i}) =>{
+    return(
+        <TaskGroupNameStyle>
+            <div key={Name}>
+            <input name={i} defaultValue={Name} onChange={handleChange} onBlur={handleBlur}/>
+            <button onClick={handleClick}>削除</button>
+            </div>
+        </TaskGroupNameStyle>
+    )
+}
+
+const Dates = ({Tasks}) =>{
+    let Task=Tasks[0]["Date"]
+    return(
+        <DatesStyle>
+            <BlankStyle></BlankStyle>
+            {Object.keys(Task).map((date, j) =>(
+                <DateStyle key={j}>{date}</DateStyle>
+            ))}
+        </DatesStyle> 
+    )
+}
+const TasknData = ({Tasks, handleChange, handleBlur, handleChange_a, handleBlur_a, i}) =>{
+    return(
+        <tfoot >
+            {Object.keys(Tasks).map((Task, j) =>(
+                <TasknDataStyle key={j}>
+                <TaskStyle>
+                    <div key={Tasks[j]["Task"]}>
+                    <input 
+                    name={i+"-"+j}
+                    defaultValue={Tasks[j]["Task"]} 
+                    onBlur={handleBlur_a}
+                    onChange={handleChange_a}
+                    />
+                    </div>
+                </TaskStyle>
+                {Object.keys(Tasks[j]["Date"]).map((key, k)=>(
+                    <DataStyle key={k}>
+                        <div key={Tasks[j]["Date"][key]}>
+                            <input 
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name={i+"-" + j + "-"+key}
+                            defaultValue={Tasks[j]["Date"][key]}
+                            />
+                        </div>
+                    </DataStyle>
+                    ))}
+            </TasknDataStyle>
+            ))}
+        </tfoot>
+    )
+}
+
 
 //Styled-Components-CSS
 const TaskLogsStyle = styled.div`
@@ -125,7 +154,18 @@ const TaskLogStyle = styled.div`
 
 const TaskGroupNameStyle = styled.div`
     font-size: 24px;
-    padding: 24px 79px 24px 31px;
+    padding: 24px 10px 24px 31px;
+    input{
+        border: none;
+        font-size: 24px;
+        color: white;
+        width: 90%;
+        background-color: transparent;
+        outline: none;
+    }
+    button{
+        float: right;
+    }
 `;
 
 const ContentStyle = styled.div`
@@ -168,17 +208,19 @@ const TaskStyle = styled.th`
     left: 0;
     z-index: 1;
     font-size: 19px;
-    padding: 5px 13px 0 30px;
+    padding-top: 7px;
     border-left: none;
     background-color: #4F5052;
-    &:before{
-        content: "";
-        position: absolute;
-        top: -1px;
-        left: -1px;
-        width: 100%;
-        height: 100%;
-        border: 0.3px solid #4F5052;
+    text-align: center;
+    input{
+        font-weight: normal;
+        width: 200px;
+        border: none;
+        outline: 0;
+        font-size: 19px;
+        text-align: center;
+        color: white;
+        background-color: transparent;
     }
 `;
 const DataStyle = styled.td`
@@ -186,11 +228,14 @@ const DataStyle = styled.td`
     border: 0.3px solid #4F5052;
     font-size: 17px;
     text-align: center;
+    div{
+    }
     input{
-        font-size: 17px;
+        width: 40px;
+        font-size: 16px;
         color: white;
-        width: 100%;
-        text-align: center;
+        margin: auto;
+        text-align: right;
         border: none;
         outline: none;
         background-color: transparent;

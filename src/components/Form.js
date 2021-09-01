@@ -1,30 +1,32 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addTaskLog } from '../actions/actions'
 import styled from 'styled-components'
 
-const AddTaskLogs = () =>{
-    //仮置き用
+const Form = () =>{
+    //Dispatch
+    const dispatch = useDispatch()
+
+    //格納用
     const [values, setValues] = useState({
         addTaskGroupName : '',
         addTask: ''
     })
-    //仮置き用（配列）
-    const [addedTasks, addTasks]=useState([])
+    const [addedTasks, setAddedTasks] = useState([])
 
-    //格納用
-    const [TaskLog, setTaskLog]  = useState({
-        createdDate : null,
-        TaskGroupName: null,
-        Tasks: []
-    })
-    
     //関数
     const createDate = () =>{
         let Dates = new Date()
-        return (Dates.getMonth()+1+'/'+ Dates.getDate());
+        return (Dates.getFullYear()+'/'+(Dates.getMonth()+1)+'/'+ Dates.getDate());
     }
 
+    const initializeState = () =>{
+        setValues({addTaskGroupName: '', addTask:''})
+        setAddedTasks([])
+    }
     return(
             <AddTaskLogStyle>
+                {/* TaskGroupNameを入力*/}
                 <AddTaskGroupName 
                 handleChange={(e)=>{
                     if(e.target.value === '')return
@@ -32,34 +34,46 @@ const AddTaskLogs = () =>{
                 value={values.addTaskGroupName}
                 />
 
-                <AddedTasks 
-                addedTasks={addedTasks}
-                 />
+                {/* AddedTasksを出力 */}
+                    <AddedTasks 
+                    addedTasks={addedTasks}
+                    />
+                
+                {/* AddTaskを入力、AddedTasksに追加、追加後にAddTaskを初期化 */}
                 <AddTask
                 value={values.addTask}
+                // AddTaskの入力
                 handleChange={(e)=>
                     {setValues({...values, addTask: e.target.value})}}
+                //AddedTasksへの追加、及びAddTaskの初期化
                 handleKeyPress={(e)=>{
                     if(e.key === 'Enter'){
                         if(values.addTask === '')return
                         e.preventDefault()
-                        addTasks([...addedTasks, values.addTask])
+                        //現段階では動作確認ができないため、上記の内容をに分割して行う。
+                        //単一の処理を確認できるようになれば、そちらを採用する。
+                        setAddedTasks([...addedTasks, values.addTask])
                         setValues({...values, addTask:''})
                     }
                 }}
                 />
+
+                {/* 入力内容を反映させる手続き */}
                 <TaskLogRegister
                 handleSubmit={()=>{
-                    if(values.TaskGroupName === "" || addedTasks.length === 0) return;
-                    setTaskLog({
-                        createdDate : createDate(),
+                    if(values.TaskGroupName === "" || addedTasks.length === 0){
+                        return null
+                    }
+                    //taskLogに入力内容を格納
+                    const taskLog = {
+                        CreatedDate : createDate(),
                         TaskGroupName: values.addTaskGroupName,
                         Tasks: addedTasks
-                    })
-                    addTasks([])
-                    setValues({
-                        ...values, addTaskGroupName:''
-                    })
+                    }
+                    //ADD_TASKLOGをDispatch
+                    dispatch(addTaskLog(taskLog))
+                    //初期化
+                    initializeState()
                 }}
                 />
             </AddTaskLogStyle>
@@ -119,7 +133,7 @@ const TaskLogRegister = ({handleSubmit}) =>{
 //Styled-Component-CSS
 const AddTaskLogStyle = styled.div`
     width: 541px;
-    margin: auto;
+    margin: 20px auto auto auto;
     border-radius: 10px;
     border: 0.6px solid #BCBCBC;
     box-shadow: 0px 0px 10px 7px #0D0D0D66;
@@ -171,10 +185,11 @@ const TaskLogRegisterStyle = styled.div`
     padding: 23px 27px 7px 473px;
     p{
     font-size: 20px;
+    color: #BCBCBC;
     &:hover, :active{
         cursor: pointer;
         color: #fff;
     }
 }
 `;
-export default AddTaskLogs
+export default Form
