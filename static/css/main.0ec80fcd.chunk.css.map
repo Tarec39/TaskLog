@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/css/Common.scss"],"names":[],"mappings":"AAAA,EACI,SAAA,CACA,QAAA,CACA,+BAAA,CAGJ,KACI,wBAAA,CAGJ,GACI,eAAA","file":"main.0ec80fcd.chunk.css","sourcesContent":["*{\r\n    padding: 0;\r\n    margin: 0;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\nbody{\r\n    background-color: #202124;\r\n}\r\n\r\nli{\r\n    list-style: none;\r\n}"]}
