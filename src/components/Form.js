@@ -35,9 +35,9 @@ const Form = () =>{
                 />
 
                 {/* AddedTasksを出力 */}
-                <AddedTasks 
-                addedTasks={addedTasks}
-                 />
+                    <AddedTasks 
+                    addedTasks={addedTasks}
+                    />
                 
                 {/* AddTaskを入力、AddedTasksに追加、追加後にAddTaskを初期化 */}
                 <AddTask
@@ -133,7 +133,7 @@ const TaskLogRegister = ({handleSubmit}) =>{
 //Styled-Component-CSS
 const AddTaskLogStyle = styled.div`
     width: 541px;
-    margin: auto;
+    margin: 20px auto auto auto;
     border-radius: 10px;
     border: 0.6px solid #BCBCBC;
     box-shadow: 0px 0px 10px 7px #0D0D0D66;
@@ -185,6 +185,7 @@ const TaskLogRegisterStyle = styled.div`
     padding: 23px 27px 7px 473px;
     p{
     font-size: 20px;
+    color: #BCBCBC;
     &:hover, :active{
         cursor: pointer;
         color: #fff;

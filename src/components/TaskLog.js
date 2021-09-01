@@ -1,13 +1,14 @@
 import React , { useState, useEffect }from 'react'
 import {  useSelector, useDispatch } from 'react-redux'
 import { store } from '../store/store'
-import { updateTaskLog, deleteTaskLog, updateTaskGroupName} from '../actions/actions'
+import { updateTaskLog, deleteTaskLog, updateTaskGroupName, updateTask} from '../actions/actions'
 import styled from 'styled-components'
 
 const TaskLogs = () =>{
     const dispatch = useDispatch()
     const TaskLogs = useSelector(state=>state.TaskLogs)
     const [notice, setNotice] = useState("")
+    const [task, setTask] =useState({})
     const [taskGroupName, setTaskGroupName] = useState({})
     const [value, setValue] =useState({})
     useEffect(()=>{
@@ -17,15 +18,11 @@ const TaskLogs = () =>{
             }else{
                 setNotice("")
             }
-            console.log(TaskLogs)
         })
     })
     return(
         <TaskLogsStyle>
-            
-            {
-            
-            Object.keys(TaskLogs).map((Log, i) => (
+            {Object.keys(TaskLogs).map((Log, i) => (
                 <TaskLogStyle key={i}>
                     <TaskGroupName 
                     Name={TaskLogs[i]["TaskGroupName"]}
@@ -57,11 +54,21 @@ const TaskLogs = () =>{
                                 e.preventDefault()
                                 setValue({...value, [e.target.name]:[e.target.value]})
                             }}
+                            handleChange_a={(e)=>{
+                                e.preventDefault()
+                                setTask({...task, [e.target.name]:[e.target.value]})
+                            }}
                             handleBlur={(e)=>{
                                 e.preventDefault()
                                 if(!Object.keys(value).length)return''
                                 dispatch(updateTaskLog(value))
                                 setValue({})
+                            }}
+                            handleBlur_a={(e)=>{
+                                e.preventDefault()
+                                if(!Object.keys(task).length)return''
+                                dispatch(updateTask(task))
+                                setTask({})
                             }}
                             />
                     </table>
@@ -77,8 +84,10 @@ const TaskLogs = () =>{
 const TaskGroupName = ({Name, handleChange,handleBlur,handleClick,i}) =>{
     return(
         <TaskGroupNameStyle>
+            <div key={Name}>
             <input name={i} defaultValue={Name} onChange={handleChange} onBlur={handleBlur}/>
             <button onClick={handleClick}>削除</button>
+            </div>
         </TaskGroupNameStyle>
     )
 }
@@ -94,19 +103,31 @@ const Dates = ({Tasks}) =>{
         </DatesStyle> 
     )
 }
-const TasknData = ({Tasks, handleChange, handleBlur, i}) =>{
+const TasknData = ({Tasks, handleChange, handleBlur, handleChange_a, handleBlur_a, i}) =>{
     return(
-        <tfoot>
+        <tfoot >
             {Object.keys(Tasks).map((Task, j) =>(
                 <TasknDataStyle key={j}>
-                <TaskStyle>{Tasks[j]["Task"]}</TaskStyle>
+                <TaskStyle>
+                    <div key={Tasks[j]["Task"]}>
+                    <input 
+                    name={i+"-"+j}
+                    defaultValue={Tasks[j]["Task"]} 
+                    onBlur={handleBlur_a}
+                    onChange={handleChange_a}
+                    />
+                    </div>
+                </TaskStyle>
                 {Object.keys(Tasks[j]["Date"]).map((key, k)=>(
                     <DataStyle key={k}>
-                        <input 
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name={i+"-" + j + "-"+key}
-                        defaultValue={Tasks[j]["Date"][key]}/>
+                        <div key={Tasks[j]["Date"][key]}>
+                            <input 
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name={i+"-" + j + "-"+key}
+                            defaultValue={Tasks[j]["Date"][key]}
+                            />
+                        </div>
                     </DataStyle>
                     ))}
             </TasknDataStyle>
@@ -187,20 +208,19 @@ const TaskStyle = styled.th`
     left: 0;
     z-index: 1;
     font-size: 19px;
-    padding: 5px 13px 0 30px;
+    padding-top: 7px;
     border-left: none;
     background-color: #4F5052;
     text-align: center;
-    &:before{
-        content: "";
-        position: absolute;
-        top: -1px;
-        left: -1px;
-        width: 100%;
-        height: 100%;
-        border: 0.3px solid #4F5052;
+    input{
+        font-weight: normal;
+        width: 200px;
+        border: none;
+        outline: 0;
+        font-size: 19px;
         text-align: center;
-
+        color: white;
+        background-color: transparent;
     }
 `;
 const DataStyle = styled.td`
@@ -208,13 +228,14 @@ const DataStyle = styled.td`
     border: 0.3px solid #4F5052;
     font-size: 17px;
     text-align: center;
+    div{
+    }
     input{
-        width: 36.5px;
-        // display: block;
-        font-size: 17px;
+        width: 40px;
+        font-size: 16px;
         color: white;
-        // width: 100%;
-        text-align: center;
+        margin: auto;
+        text-align: right;
         border: none;
         outline: none;
         background-color: transparent;

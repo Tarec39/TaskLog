@@ -1,4 +1,4 @@
-import { ADD_TASKLOG, UPDATE_TASKLOG, DELETE_TASKLOG, UPDATE_TASKGROUPNAME} from '../actions/actions'
+import { ADD_TASKLOG, UPDATE_TASKLOG, DELETE_TASKLOG, UPDATE_TASKGROUPNAME, UPDATE_TASK} from '../actions/actions'
 import TaskLogs from '../components/TaskLog'
 const initialState = {
     "TaskLogs" : [
@@ -73,10 +73,9 @@ const reducer = (state = initialState, action) =>{
                 TaskLogs :[...state.TaskLogs, action.TaskLog]
             }
           }
-        
         case UPDATE_TASKLOG:{
           const [i, j, k, value] = action.data;
-          
+
           const nextDate = {
             ...state.TaskLogs[i].Tasks[j].Date,
             [k]: value,
@@ -91,30 +90,39 @@ const reducer = (state = initialState, action) =>{
             ...e,
             Tasks: index === i ? nextTasks : e.Tasks,
           }));
-          
+
           return { TaskLogs: nextTaskLogs };
         }
-
         case UPDATE_TASKGROUPNAME:{
-          let i = action.taskGroupName[0]
-          let taskGroupName = action.taskGroupName[1]
+          const [i, taskGroupName] = action.taskGroupName
 
-          return{
-            ...state,
-            TaskLogs:{
-              ...state.TaskLogs,
-              [i]:{
-                ...state.TaskLogs[i],
-                TaskGroupName: taskGroupName
-              }
-            }
-          }
+          const nextTasKLogs = state.TaskLogs.map((e,index)=>(
+            {...e, TaskGroupName:index === i? taskGroupName:e.TaskGroupName}
+          ))
+
+          return{TaskLogs:nextTasKLogs}
+
         }
         case DELETE_TASKLOG:{
-          // delete state.TaskLogs[action.index]
           return{
             ...state,
             TaskLogs: state.TaskLogs.filter((log, i) => i!==action.index)
+          }
+        }
+        case UPDATE_TASK:{
+          const [i, j, value] = action.task
+          
+          const nextTasks = state.TaskLogs[i].Tasks.map((e, index) => ({
+            ...e,
+            Task: index === j ? value : e.Task,
+          }));
+          
+          const nextTaskLogs = state.TaskLogs.map((e, index) => ({
+            ...e,
+            Tasks: index === i ? nextTasks : e.Tasks,
+          }));
+          return{
+            TaskLogs:nextTaskLogs
           }
         }
         default:{

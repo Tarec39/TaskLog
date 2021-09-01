@@ -1,7 +1,11 @@
 export const ADD_TASKLOG = "ADD_TASKLOG"
 export const UPDATE_TASKLOG = "UPDATE_TASKLOG"
 export const DELETE_TASKLOG = "DELETE_TASKLOG"
+
 export const UPDATE_TASKGROUPNAME = "UPDATE_TASKGROUPNAME"
+export const DELETE_TASK = "DELETE_TASK"
+export const ADD_TASK = "ADD_TASK"
+export const UPDATE_TASK = "UPDATE_TASK"
 
 export const addTaskLog = (taskLog) => {
     const formatTaskLog = (obj) =>{
@@ -89,5 +93,23 @@ export const updateTaskGroupName = (taskGroupName) =>{
     return{
         type:UPDATE_TASKGROUPNAME,
         taskGroupName
+    }
+}
+
+export const updateTask = (task) =>{
+    const taskValue = Object.values(task).join('')
+    let taskInt = Object.keys(task).join('-')
+    taskInt = taskInt.split('-')
+    task = []
+    taskInt.map((taskI) =>{
+        task.push(parseInt(taskI, 10))
+    })
+    task.push(taskValue)
+    console.log(task)
+    // console.log(taskValue)
+
+    return{
+        type: UPDATE_TASK,
+        task
     }
 }

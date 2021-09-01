@@ -9,6 +9,8 @@
     "node": "^16.6.1",
     "node-sass": "^6.0.1",
     "react": "18.0.0-alpha-edfe50510-20210823",
+    "react-dnd": "^14.0.3",
+    "react-dnd-html5-backend": "^14.0.1",
     "react-dom": "18.0.0-alpha-edfe50510-20210823",
     "react-redux": "^7.2.4",
     "react-scripts": "4.0.3",
