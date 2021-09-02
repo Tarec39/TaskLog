@@ -61,19 +61,21 @@ const Form = () =>{
                 {/* 入力内容を反映させる手続き */}
                 <TaskLogRegister
                 handleSubmit={()=>{
-                    if(values.TaskGroupName === "" || addedTasks.length === 0){
+                    if(addedTasks.length === 0){
+                        alert("タスクを入力後、Enterを押して追加してください。")
                         return null
+                    }else{
+                        //taskLogに入力内容を格納
+                        const taskLog = {
+                            CreatedDate : createDate(),
+                            TaskGroupName: values.addTaskGroupName,
+                            Tasks: addedTasks
+                        }
+                        //ADD_TASKLOGをDispatch
+                        dispatch(addTaskLog(taskLog))
+                        //初期化
+                        initializeState()
                     }
-                    //taskLogに入力内容を格納
-                    const taskLog = {
-                        CreatedDate : createDate(),
-                        TaskGroupName: values.addTaskGroupName,
-                        Tasks: addedTasks
-                    }
-                    //ADD_TASKLOGをDispatch
-                    dispatch(addTaskLog(taskLog))
-                    //初期化
-                    initializeState()
                 }}
                 />
             </AddTaskLogStyle>
